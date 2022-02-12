@@ -18,15 +18,15 @@ pipeline{
         
         stage("Docker Build"){
           steps {
-                 echo env.GIT_BRANCH
+              if(env.GIT_BRANCH=="main"){
                  
                  sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
                         docker build -t bala2805/nodejs .
-                        docker push bala2805/nodejs:${branch}
+                        docker push bala2805/nodejs:main
                         
                     """ 
-              
+              }
           }
         }
     }
