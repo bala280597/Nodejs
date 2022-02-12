@@ -40,6 +40,11 @@ pipeline{
           steps {
               script {
               if(env.GIT_BRANCH=="main"){
+                   sh """ 
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker pull bala2805/nodejs:main
+                        
+                    """ 
                 step([
                     $class: 'KubernetesEngineBuilder',
                     projectId: env.PROJECT_ID,
