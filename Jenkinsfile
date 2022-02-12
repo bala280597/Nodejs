@@ -1,8 +1,10 @@
 pipeline{
     agent any
     environment {
-        DOCKER_USER = credentials("docker-user")
-        DOCKER_PASS = credentials("docker-pass")
+        PROJECT_ID = 'essential-city-336316'
+        CLUSTER_NAME = 'cluster-1'
+        LOCATION = 'us-central1-c'
+        CREDENTIALS_ID = 'k8s'
     }
     stages{
         stage('Checkout'){
@@ -35,14 +37,15 @@ pipeline{
         stage("Kubernetes Deployment"){
           steps {
               script {
-                  
               if(env.GIT_BRANCH=="main"){
-                  kubernetesDeploy configs: '*.yml', 
-                      enableConfigSubstitution: false, 
-                      kubeConfig: [path: ''], kubeconfigId: 'k8s', 
-                      secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], 
-                      textCredentials: [certificateAuthorityData: '', clientCertificateData: '', 
-                      clientKeyData: '', serverUrl: 'https://']
+                step([
+                    $class: 'KubernetesEngineBuilder',
+                    projectId: env.PROJECT_ID,
+                    clusterName: env.CLUSTER_NAME,
+                    location: env.LOCATION,
+                    manifestPattern: 'deploy.yml',
+                    credentialsId: env.CREDENTIALS_ID,
+                    verifyDeployments: true])
                  
               }
              }
