@@ -43,6 +43,8 @@ pipeline{
                    sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
                         docker pull bala2805/nodejs:main-${env.BUILD_ID}
+                        export IMAGE_NAME=bala2805/nodejs:main-${env.BUILD_ID}
+                        cat deploy.yml | envsubst > deploy.yml
                         
                     """ 
                 step([
