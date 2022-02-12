@@ -28,8 +28,8 @@ pipeline{
                  
                  sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
-                        docker build -t bala2805/nodejs:main .
-                        docker push bala2805/nodejs:main
+                        docker build -t bala2805/nodejs:main-${env.BUILD_ID} .
+                        docker push bala2805/nodejs:main-${env.BUILD_ID}
                         
                     """ 
               }
@@ -42,7 +42,7 @@ pipeline{
               if(env.GIT_BRANCH=="main"){
                    sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
-                        docker pull bala2805/nodejs:main
+                        docker pull bala2805/nodejs:main-${env.BUILD_ID}
                         
                     """ 
                 step([
