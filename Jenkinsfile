@@ -12,9 +12,10 @@ pipeline{
             }
         }
         
-        stage(env.GIT_BRANCH+"Build"){
+        stage("Docker Build"){
           steps {
                  echo 'Pulling... ' + env.GIT_BRANCH
+                 docker login -u bala2805 -p 
                  
           }
         }
