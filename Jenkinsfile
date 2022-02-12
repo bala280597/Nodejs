@@ -18,6 +18,7 @@ pipeline{
         
         stage("Docker Build"){
           steps {
+              script {
                  branch = sh (
                     script: 'echo env.GIT_BRANCH',
                     returnStdout: true
@@ -29,7 +30,7 @@ pipeline{
                         docker push bala2805/nodejs:${branch}
                         
                     """
-                 
+              } 
           }
         }
     }
