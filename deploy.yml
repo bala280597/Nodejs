@@ -7,7 +7,7 @@ metadata:
     app: nodejs
   name: nodejs
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: nodejs
@@ -19,7 +19,7 @@ spec:
         app: nodejs
     spec:
       containers:
-      - image: bala2805/nodejs:latest
+      - image: bala2805/nodejs:main-40
         ports:
           - containerPort: 3000
         name: nodejs
