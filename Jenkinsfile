@@ -22,14 +22,15 @@ pipeline{
                  branch = sh (
                     script: 'echo env.GIT_BRANCH',
                     returnStdout: true
-                  ).trim()
+                  )
+                  echo ${branch}
                  
-                 sh """ 
+                /* sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
                         docker build -t bala2805/nodejs .
                         docker push bala2805/nodejs:${branch}
                         
-                    """
+                    """ */
               } 
           }
         }
