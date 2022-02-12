@@ -20,6 +20,7 @@ pipeline{
           steps {
                  echo 'Pulling... ' + env.GIT_BRANCH
                  sh """ 
+                        docker login -u env.DOCKER_USER -p env.DOCKER_PASS
                         docker build -t bala2805/nodejs .
                         docker push bala2805/nodejs:env.GIT_BRANCH
                         
