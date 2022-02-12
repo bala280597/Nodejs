@@ -24,7 +24,7 @@ pipeline{
                  
                  sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
-                        docker build -t bala2805/nodejs .
+                        docker build -t bala2805/nodejs:main .
                         docker push bala2805/nodejs:main
                         
                     """ 
