@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    environment {
+        DOCKER_USER = credentials("docker-user")
+        DOCKER_PASS = credentials("docker-pass")
+    }
     stages{
         stage('Checkout'){
             steps{
@@ -16,8 +20,8 @@ pipeline{
           steps {
                  echo 'Pulling... ' + env.GIT_BRANCH
                  sh """ 
-                        docker login -u credentials("docker-user") -p credentials("docker-pass")
-                        docker build -t bala2805/nodejs . 
+                        docker login -u env.DOCKER_USER -p env.DOCKER_PASS
+                        
                     """
                  
           }
