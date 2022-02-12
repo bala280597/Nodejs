@@ -18,7 +18,7 @@ pipeline{
         
         stage("Docker Build"){
           steps {
-                 def branch = sh (
+                 branch = sh (
                     script: 'echo env.GIT_BRANCH',
                     returnStdout: true
                   ).trim()
