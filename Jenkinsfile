@@ -37,13 +37,11 @@ pipeline{
               script {
                   
               if(env.GIT_BRANCH=="main"){
-                  kubernetesDeploy configs: 'deploy.yml', 
-                      kubeConfig: [path: ''], 
-                      kubeconfigId: 'k8s', 
-                      secretName: '', 
-                      ssh: [sshCredentialsId: '*', sshServer: ''], 
-                      textCredentials: [certificateAuthorityData: '', 
-                      clientCertificateData: '', 
+                  kubernetesDeploy configs: '*.yml', 
+                      enableConfigSubstitution: false, 
+                      kubeConfig: [path: ''], kubeconfigId: 'k8s', 
+                      secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], 
+                      textCredentials: [certificateAuthorityData: '', clientCertificateData: '', 
                       clientKeyData: '', serverUrl: 'https://']
                  
               }
