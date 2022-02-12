@@ -18,6 +18,8 @@ pipeline{
         
         stage("Docker Build"){
           steps {
+              script {
+                  
               if(env.GIT_BRANCH=="main"){
                  
                  sh """ 
@@ -27,6 +29,7 @@ pipeline{
                         
                     """ 
               }
+             }
           }
         }
     }
