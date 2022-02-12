@@ -18,12 +18,13 @@ pipeline{
         
         stage("Docker Build"){
           steps {
-              script {
-                 branch = sh (
+              branch = sh (
                     script: 'echo env.GIT_BRANCH',
                     returnStdout: true
                   )
-                  echo ${branch}
+              echo ${branch}
+              script {
+                 
                  
                 /* sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
