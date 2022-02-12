@@ -1,3 +1,4 @@
+#comments
 FROM node:latest
 MAINTAINER BALA
 USER BALA
