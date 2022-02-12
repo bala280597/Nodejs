@@ -26,7 +26,7 @@ pipeline{
                         docker push bala2805/nodejs:${branch}
                         
                     """ 
-              } 
+              
           }
         }
     }
