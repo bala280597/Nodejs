@@ -4,7 +4,7 @@ pipeline{
         PROJECT_ID = 'essential-city-336316'
         CLUSTER_NAME = 'cluster-1'
         LOCATION = 'us-central1-c'
-        CREDENTIALS_ID = 'k8s'
+        CREDENTIALS_ID = 'essential-city-336316'
         DOCKER_USER = credentials('docker-user')
         DOCKER_PASS = credentials('docker-pass')
     }
