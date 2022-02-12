@@ -15,7 +15,8 @@ pipeline{
         stage("Docker Build"){
           steps {
                  echo 'Pulling... ' + env.GIT_BRANCH
-                 docker login -u bala2805 -p 
+                 sh """ docker login -u credentials('docker-user') -p credentials('docker-pass')
+                        docker build -t bala2805/nodejs . """
                  
           }
         }
