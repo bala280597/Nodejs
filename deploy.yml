@@ -19,7 +19,7 @@ spec:
         app: nodejs
     spec:
       containers:
-      - image: bala2805/nodejs:main-40
+      - image: bala2805/nodejs:latest
         ports:
           - containerPort: 3000
         name: nodejs
