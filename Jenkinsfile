@@ -12,7 +12,7 @@ pipeline{
             }
         }
         
-        stage('Branch Check'){
+        stage(env.GIT_BRANCH+"Build"){
           steps {
                  echo 'Pulling... ' + env.GIT_BRANCH
                  
