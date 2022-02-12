@@ -22,15 +22,12 @@ pipeline{
         
         stage("Docker Build"){
           steps {
-              script {
-                  
-              if(env.GIT_BRANCH=="main"){
-                 
+              script {  
+              if(env.GIT_BRANCH=="main"){ 
                  sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
                         docker build -t bala2805/nodejs:main-${env.BUILD_ID} .
                         docker push bala2805/nodejs:main-${env.BUILD_ID}
-                        
                     """ 
               }
              }
@@ -44,7 +41,7 @@ pipeline{
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
                         docker pull bala2805/nodejs:main-${env.BUILD_ID}
                         export IMAGE_NAME=bala2805/nodejs:main-${env.BUILD_ID}
-                        cat deploy.yml | envsubst > deploy.yml
+                        cat deploy.yml | envsubst > deployment.yml
                         
                     """ 
                 step([
@@ -52,7 +49,7 @@ pipeline{
                     projectId: env.PROJECT_ID,
                     clusterName: env.CLUSTER_NAME,
                     location: env.LOCATION,
-                    manifestPattern: 'deploy.yml',
+                    manifestPattern: 'deployment.yml',
                     credentialsId: env.CREDENTIALS_ID,
                     verifyDeployments: true])
                  
