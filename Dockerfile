@@ -3,5 +3,5 @@ FROM node:latest
 MAINTAINER BALA
 EXPOSE 3000
 WORKDIR /application
-COPY . .
+COPY ./src/ .
 CMD ["npm","start"]
