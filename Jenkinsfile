@@ -74,6 +74,7 @@ pipeline{
                         cat deploy.yml | envsubst > deployment.yml
                     """ 
                  }
+                if( env.GIT_BRANCH.contains("test") || env.GIT_BRANCH.contains("develop") || env.GIT_BRANCH == "main" ) {
                 step([
                     $class: 'KubernetesEngineBuilder',
                     projectId: env.PROJECT_ID,
@@ -82,7 +83,7 @@ pipeline{
                     manifestPattern: 'deployment.yml',
                     credentialsId: env.CREDENTIALS_ID,
                     verifyDeployments: false])
-                 
+                }
          
              }
           }
@@ -90,4 +91,3 @@ pipeline{
         
     }
 }
-
