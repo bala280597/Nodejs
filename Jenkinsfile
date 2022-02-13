@@ -12,7 +12,7 @@ pipeline{
         stage('Checkout'){
             steps{
                 checkout([$class: 'GitSCM', 
-                branches: [[name: '*/main']], 
+                branches: [[name: '**']], 
                 extensions: [], 
                 userRemoteConfigs: [[
                     credentialsId: 'c94b22eb-6c7d-440b-b468-06679d537899', 
@@ -30,6 +30,20 @@ pipeline{
                         docker push bala2805/nodejs:main-${env.BUILD_ID}
                     """ 
               }
+              if(env.GIT_BRANCH.contains("develop")){ 
+                 sh """ 
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker build -t bala2805/nodejs:dev-${env.BUILD_ID} .
+                        docker push bala2805/nodejs:dev-${env.BUILD_ID}
+                    """ 
+              }
+              if(env.GIT_BRANCH.contains("test")) { 
+                 sh """ 
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker build -t bala2805/nodejs:test-${env.BUILD_ID} .
+                        docker push bala2805/nodejs:test-${env.BUILD_ID}
+                    """ 
+              }
              }
           }
         }
@@ -42,8 +56,24 @@ pipeline{
                         docker pull bala2805/nodejs:main-${env.BUILD_ID}
                         export IMAGE_NAME=bala2805/nodejs:main-${env.BUILD_ID}
                         cat deploy.yml | envsubst > deployment.yml
-                        
                     """ 
+                 }
+               if(env.GIT_BRANCH.contains("develop")){
+                   sh """ 
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker pull bala2805/nodejs:dev-${env.BUILD_ID}
+                        export IMAGE_NAME=bala2805/nodejs:dev-${env.BUILD_ID}
+                        cat deploy.yml | envsubst > deployment.yml
+                    """ 
+                 }
+                 if(env.GIT_BRANCH.contains("test")){
+                   sh """ 
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker pull bala2805/nodejs:test-${env.BUILD_ID}
+                        export IMAGE_NAME=bala2805/nodejs:test-${env.BUILD_ID}
+                        cat deploy.yml | envsubst > deployment.yml
+                    """ 
+                 }
                 step([
                     $class: 'KubernetesEngineBuilder',
                     projectId: env.PROJECT_ID,
@@ -53,7 +83,7 @@ pipeline{
                     credentialsId: env.CREDENTIALS_ID,
                     verifyDeployments: true])
                  
-              }
+         
              }
           }
         }
