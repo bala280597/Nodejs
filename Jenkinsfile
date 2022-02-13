@@ -50,6 +50,7 @@ pipeline{
         stage("Kubernetes Deployment"){
           steps {
               script {
+              if( (env.GIT_BRANCH.contains("test")) || (env.GIT_BRANCH.contains("develop")) || (env.GIT_BRANCH == "main") ) {
               if(env.GIT_BRANCH=="main"){
                    sh """ 
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
@@ -85,7 +86,7 @@ pipeline{
                     manifestPattern: 'deployment.yml',
                     credentialsId: env.CREDENTIALS_ID,
                     verifyDeployments: true])
-                //}
+                }
          
              }
           }
