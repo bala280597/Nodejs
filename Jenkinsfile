@@ -86,8 +86,7 @@ pipeline{
                     manifestPattern: 'deployment.yml',
                     credentialsId: env.CREDENTIALS_ID,
                     verifyDeployments: false])
-                 
-         
+
              }
           }
         }
