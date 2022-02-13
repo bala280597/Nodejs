@@ -56,6 +56,7 @@ pipeline{
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
                         docker pull bala2805/nodejs:main-${env.BUILD_ID}
                         export IMAGE_NAME=bala2805/nodejs:main-${env.BUILD_ID}
+                        echo "Branch Name is ${env.GIT_BRANCH}"
                         export NAMESPACE=${env.GIT_BRANCH}
                         cat deploy.yml | envsubst > deployment.yml
                     """ 
@@ -66,6 +67,7 @@ pipeline{
                         docker pull bala2805/nodejs:dev-${env.BUILD_ID}
                         export IMAGE_NAME=bala2805/nodejs:dev-${env.BUILD_ID}
                         export NAMESPACE=${env.GIT_BRANCH}
+                        echo "Branch Name is ${env.GIT_BRANCH}"
                         cat deploy.yml | envsubst > deployment.yml
                     """ 
                  }
@@ -75,6 +77,7 @@ pipeline{
                         docker pull bala2805/nodejs:test-${env.BUILD_ID}
                         export IMAGE_NAME=bala2805/nodejs:test-${env.BUILD_ID}
                         export NAMESPACE=${env.GIT_BRANCH}
+                        echo "Branch Name is ${env.GIT_BRANCH}"
                         cat deploy.yml | envsubst > deployment.yml
                     """ 
                  }
