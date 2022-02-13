@@ -85,7 +85,7 @@ pipeline{
                     location: env.LOCATION,
                     manifestPattern: 'deployment.yml',
                     credentialsId: env.CREDENTIALS_ID,
-                    verifyDeployments: true])
+                    verifyDeployments: false])
                  
          
              }
