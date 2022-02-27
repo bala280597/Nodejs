@@ -25,7 +25,7 @@ pipeline{
                 def scannerHome = tool 'sonar_scanner'
 
                 withSonarQubeEnv('sonarqube') {
-                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=myproject -Dsonar.sources=. "
+                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=balanodejs -Dsonar.sources=. "
                   }
                 }
             }
