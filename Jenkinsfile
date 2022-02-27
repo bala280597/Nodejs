@@ -17,7 +17,7 @@ pipeline{
                 userRemoteConfigs: [[
                     credentialsId: 'c94b22eb-6c7d-440b-b468-06679d537899',
                     url: 'https://github.com/bala280597/Nodejs.git']]])
-            }
+            } 
         }
         stage('Sonar') {
             steps {
