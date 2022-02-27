@@ -19,7 +19,16 @@ pipeline{
                     url: 'https://github.com/bala280597/Nodejs.git']]])
             }
         }
-        
+        stage('Sonar') {
+            steps {
+                script {
+                def scannerHome = tool 'sonar_scanner'
+
+                withSonarQubeEnv('sonarqube') {
+                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=myproject -Dsonar.sources=. "
+                  }
+                }
+            }
         
         stage("Docker Build"){
           steps {
