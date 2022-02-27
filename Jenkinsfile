@@ -19,7 +19,7 @@ pipeline{
                     url: 'https://github.com/bala280597/Nodejs.git']]])
             } 
         }
-        stage('Sonar') {
+        stage('Sonar Code Analysis') {
             steps {
                 script {
                 def scannerHome = tool 'sonar_scanner'
@@ -29,6 +29,16 @@ pipeline{
                   }
                 }
             }
+        }
+        
+        stage("Sonar Quality Gate"){
+            steps { script {
+                timeout(time: 2, unit: 'MINUTES') { 
+                def qg = waitForQualityGate(webhookSecretId: 'jenkins_password')    
+                if (qg.status != 'OK') {
+                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                }}
+            }}
         }
         
         stage("Docker Build"){
