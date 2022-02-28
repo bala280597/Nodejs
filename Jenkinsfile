@@ -5,7 +5,6 @@ pipeline{
         CLUSTER_NAME = 'cluster-1'
         LOCATION = 'us-central1-c'
         CREDENTIALS_ID = 'essential-city-336316'
-        CREDENTIALS_ID='My First Project'
         DOCKER_USER = credentials('docker-user')
         DOCKER_PASS = credentials('docker-pass')
     }
