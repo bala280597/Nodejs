@@ -72,7 +72,9 @@ pipeline{
                    sh """
                         export IMAGE_NAME=bala2805/nodejs:main-${env.BUILD_ID}
                         export NAMESPACE=${env.GIT_BRANCH}
+                        ls
                         cat deploy.yml | envsubst > deploy.yml
+                        ls
                     """
                  }
                if(env.GIT_BRANCH.contains("develop")){
