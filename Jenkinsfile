@@ -14,10 +14,12 @@ pipeline{
                 script {
                 def scannerHome = tool 'sonar_scanner'
                 
+                 sh """ mvn package"""
+                
                 
                 withSonarQubeEnv('sonarqube') {
                       
-                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=. "
+                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=. -Dsonar.java.binaries=./target/** "
                       
                   }
                 }
@@ -72,9 +74,7 @@ pipeline{
                    sh """
                         export IMAGE_NAME=bala2805/nodejs:main-${env.BUILD_ID}
                         export NAMESPACE=${env.GIT_BRANCH}
-                        ls
-                        cat deploy.yml | envsubst > deploy.yml
-                        ls
+                        cat deploy.yml | envsubst > deployment.yml
                     """
                  }
                if(env.GIT_BRANCH.contains("develop")){
@@ -91,7 +91,6 @@ pipeline{
                         export IMAGE_NAME=bala2805/nodejs:test-${env.BUILD_ID}
                         export NAMESPACE=${env.GIT_BRANCH}
                         cat deploy.yml | envsubst > deployment.yml
-                        ls
                     """
                  }
                 step([
@@ -99,7 +98,7 @@ pipeline{
                     projectId: env.PROJECT_ID,
                     clusterName: env.CLUSTER_NAME,
                     location: env.LOCATION,
-                    manifestPattern: 'deploy.yml',
+                    manifestPattern: 'deployment.yml',
                     credentialsId: env.CREDENTIALS_ID,
                     verifyDeployments: false])
                 }
