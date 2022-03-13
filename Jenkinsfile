@@ -9,23 +9,16 @@ pipeline{
         DOCKER_PASS = credentials('docker-pass')
     }
     stages{
-        stage('Checkout'){
-            steps{
-                checkout([$class: 'GitSCM',
-                branches: [[name: '**']],
-                extensions: [],
-                userRemoteConfigs: [[
-                    credentialsId: 'c94b22eb-6c7d-440b-b468-06679d537899',
-                    url: 'https://github.com/bala280597/Nodejs.git']]])
-            } 
-        }
         stage('Sonar Code Analysis') {
             steps {
                 script {
                 def scannerHome = tool 'sonar_scanner'
-
+                
+                
                 withSonarQubeEnv('sonarqube') {
-                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=. "
+                      
+                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=. "
+                      
                   }
                 }
             }
