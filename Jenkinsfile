@@ -9,30 +9,6 @@ pipeline{
         DOCKER_PASS = credentials('docker-pass')
     }
     stages{
-        stage('Sonar Code Analysis') {
-            steps {
-                script {
-                def scannerHome = tool 'sonar_scanner'
-                
-                
-                withSonarQubeEnv('sonarqube') {
-                      
-                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=. "
-                      
-                  }
-                }
-            }
-        }
-        
-        stage("Sonar Quality Gate"){
-            steps { script {
-                timeout(time: 2, unit: 'MINUTES') { 
-                def qg = waitForQualityGate(webhookSecretId: 'jenkins_password')    
-                if (qg.status != 'OK') {
-                error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                }}
-            }}
-        }
         
         stage("Docker Build"){
           steps {
