@@ -38,6 +38,7 @@ spec:
   ports:
   - port: 3000
     protocol: TCP
+    nodePort: 30007
   selector:
     app: nodejs
   type: NodePort
