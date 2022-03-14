@@ -7,6 +7,7 @@ pipeline{
         CREDENTIALS_ID = 'refined-circuit-342805'
         DOCKER_USER = credentials('docker-user')
         DOCKER_PASS = credentials('docker-pass')
+        USER_CREDENTIALS = credentials('jenkins_password')
     }
     stages{
         
@@ -78,7 +79,11 @@ pipeline{
                 }
              }
           }
+        }    
+    }
+     post { 
+        always { 
+            sh """ python Build.py ${USER_CREDENTIALS} bala2805/Nodejs ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.durationString.replace(' and counting', '')} """
         }
-        
     }
 }
