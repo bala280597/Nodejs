@@ -81,10 +81,4 @@ pipeline{
           }
         }    
     }
-     post { 
-        always { 
-            sh """ python Build.py ${USER_CREDENTIALS} bala2805/Nodejs ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.durationString.replace(' and counting', '')} """
-            cleanWs()
-        }
-    }
 }
