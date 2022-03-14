@@ -81,11 +81,4 @@ pipeline{
         }
         
     }
-     post { 
-        always { 
-            sh """ 
-                   python Build.py credentials('jenkins_password') bala2805/Nodejs ${JOB_NAME} ${BUILD_NUMBER} ${currentBuild.durationString.replace(' and counting', '')}
-               """
-        }
-    }
 }
