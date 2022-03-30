@@ -14,12 +14,10 @@ pipeline{
                 script {
                 def scannerHome = tool 'sonar_scanner'
                 
-                 sh """ mvn package"""
-                
                 
                 withSonarQubeEnv('sonarqube') {
                       
-                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=src -Dsonar.java.binaries=./target/** "
+                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Nodejs -Dsonar.sources=. "
                       
                   }
                 }
